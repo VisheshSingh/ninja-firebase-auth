@@ -1,3 +1,8 @@
+// get data
+db.collection('guides').get().then(snapshot => {
+    snapshotGuides(snapshot.docs);
+})
+
 // listen to auth state changes
 auth.onAuthStateChanged(user => {
     if (user) {
