@@ -4,12 +4,17 @@ const loggedInLinks = document.querySelectorAll('.logged-in');
 const loggedOutLinks = document.querySelectorAll('.logged-out');
 const accountDetails = document.querySelector('.account-details');
 
-setupUI = (user) => {
+const setupUI = (user) => {
     if (user) {
-        const html = `
-            <div>Logged in as ${user.email}</div>
-        `
-        accountDetails.innerHTML = html;
+        // account info
+        db.collection('users').doc(user.uid).get().then(doc => {
+
+            const html = `
+                <div>Logged in as ${user.email}</div>
+                <p>${doc.data().bio}</p>
+            `;
+            accountDetails.innerHTML = html;
+        })
         loggedInLinks.forEach(item => item.style.display = 'block');
         loggedOutLinks.forEach(item => item.style.display = 'none');
     } else {
