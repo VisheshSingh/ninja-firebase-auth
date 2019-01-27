@@ -15,6 +15,9 @@ auth.onAuthStateChanged(user => {
         //     snapshotGuides(snapshot.docs);
         //     setupUI(user);
         // })
+        user.getIdTokenResult().then(idTokenResult => {
+            user.admin = idTokenResult.claims.admin;
+        })
 
         // real-time data
         db.collection('guides').onSnapshot(snapshot => {
